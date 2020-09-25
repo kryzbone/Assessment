@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan&display=swap');
+
+* {
+	font-family: 'Spartan', sans-serif;
+	box-sizing: border-box;
+}
+
+:root {
+	--gray: hsl(0, 0%, 63%);
+    --black: hsl(0, 0%, 0%);
+	--white: hsl(0, 0%, 100%);
+	--darkGray: hsl(0, 0%, 27%);
+}
+
+body {
+	margin: 0;
+	min-height: 100vh;
+}
+
+.container {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.top {
+	display: flex;
+	height: 534px;
+}
+
+.hero {
+	flex: 55%;
+	max-width: 100%;
+	overflow: hidden;
+
+	position: relative;
+}
+
+.hero img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+
+	width: 100%;
+	object-fit: cover;
+}
+
+.nav {
+	padding: 2rem;
+}
+
+.logo {
+	margin: 0 .5rem;
+	vertical-align: middle;
+}
+
+.nav-link {
+	margin: 0 1rem;
+	text-decoration: none;
+	color: var(--white);
+	padding: .3rem 0;
+}
+
+.nav-link:hover {
+	border-bottom: 2px solid var(--white)
+}
+
+.slides {
+	flex: 45%;
+	max-width: 40%;
+	position: relative;
+}
+
+.slide h1 {
+	font-weight: 700;
+	font-size: 2rem;
+}
+
+.slide p {
+	font-size: .85rem;
+	margin-bottom: 1.5rem;
+	color: var(--gray)
+}
+
+.slide a {
+	text-transform: uppercase;
+	letter-spacing: .2rem;
+	cursor: pointer;
+}
+
+.slide a:hover {
+	opacity: .5;
+}
+
+.slide {
+	width: 70%;
+	height: 100%;
+	margin: 20% auto 0 20%;
+}
+
+.controls {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: flex;
+}
+
+.controls .left, .controls .right {
+	background: black;
+	width: 6rem;
+	height: 6rem;
+	cursor: pointer;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.controls .left:hover, .controls .right:hover {
+	opacity: .5;
+}
+
+.hide {
+	display: none;
+}
+
+
+.bottom {
+	display: flex;
+	height: 266px;
+}
+
+.about {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.about div {
+	width: 70%;
+}
+
+.about div h1 {
+	font-weight: bolder;
+	font-size: .9rem;
+	text-transform: uppercase;
+	letter-spacing: .5rem;
+	margin: .1rem 0;
+}
+
+.about div p {
+	font-size: .8rem;
+	margin-bottom: 1.5rem;
+	color: var(--gray);
+}
