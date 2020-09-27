@@ -2,6 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const url = require("url");
 const path = require("path");
+const qs = require("querystring");
 
 const port = process.env.PORT || 3000;
 
@@ -46,7 +47,7 @@ http.createServer((req, res) => {
 
 
     //default route
-    if(pathname === "/") {
+    if(pathname === "/" && req.method === "GET") {
         fs.readFile(__dirname + "/public/index.html", (err, file) => {
             if(err) {
                 res.writeHead(400, {"Content-Type": "text/html"})
@@ -56,6 +57,29 @@ http.createServer((req, res) => {
             res.write(file);
             res.end();
         });  
+    }
+
+    //create post route
+    if(pathname === "/create") {
+        const method = req.method;
+        //check if request is a POST request
+        if(method === "POST") {
+            let reqBody = "";
+
+            //accumulate data coming in as stream
+            req.on("data", (chunk) => {
+                reqBody += chunk;
+                reqBody.trim()
+            })
+
+            //when the stream ends
+            req.on("end", () => {
+                console.log(qs.parse(reqBody));
+                res.writeHead(302, {"Location": "/"})
+                res.end();
+            })
+
+        }
     }
     
     
