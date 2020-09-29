@@ -11,4 +11,6 @@ module.exports = function routes(req, res) {
     //create post route
     if(req.url == "/create" && req.method === "POST") handler.createPost(req, res);
 
+    if(req.url === "/posts" && req.method === "GET") handler.allBlogs(req, res);
+
 }
