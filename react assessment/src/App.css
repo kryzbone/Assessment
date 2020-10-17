@@ -1,0 +1,132 @@
+/* Materialize */
+h3 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+hr {
+  border-width: 2px;
+  border-style: solid;
+}
+
+.collection{
+  margin: 0;
+  border: 0;
+}
+
+.collection .collection-item {
+  border-bottom: none;
+  padding: 1.5rem;
+}
+
+.collection .collection-item.active {
+  color: #eafaf9 !important;
+}
+
+.row .col {
+  padding: 0 5px 0 0;
+}
+
+
+
+
+
+
+/* custom styles */
+.nav-right {
+  max-width: 2rem;
+}
+
+.menu-ico {
+  margin-right: 1rem;
+}
+
+.p-pic {
+  margin-right: .5rem;
+}
+
+
+.head {
+  margin: .5rem 0 1.5rem ;
+  border-radius: .2rem;
+  padding: .35rem;
+}
+
+.side {
+  border-radius: .2rem;
+}
+
+.main {
+  border-radius: .2rem;
+  padding: 1rem;
+}
+
+
+.group-title {
+  font-size: 1.1rem;
+  font-weight: 650;
+}
+
+.inp-f {
+  border-radius: .2rem;
+  border: 1px solid #e0e0e0;
+}
+
+input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: .5rem;
+  background: transparent;
+}
+
+label {
+  font-size: .9rem;
+  font-weight: 650;
+  color: #212121;
+}
+
+.file {
+  margin-bottom: 5rem;
+  padding: .75rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.file-input {
+  display: none;
+}
+
+.dragbox {
+  border: 2px dashed grey;
+  border-radius: .2rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dragbox.solid {
+  border: 2px solid grey;
+}
+
+.save {
+  padding: .75rem;
+}
+
+.prev {
+  margin-right: 1rem;
+}
+
+/* Report Page */
+.report-head {
+  background:  linear-gradient(87deg, #11cdef 0, #1171ef 100%);
+  width: 100%;
+  height: 400px;
+}
+
+.report-head .heading {
+  margin-top: -10rem;
+}
