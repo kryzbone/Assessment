@@ -19,7 +19,7 @@ function App() {
       
       <MyContext.Provider value={{state, dispatch}} >
         <Route exact path="/report" component={ReportPage} />
-        <Route exact path="/form" component={FormPage} />
+        <Route exact path="/" component={FormPage} />
       </MyContext.Provider>  
     
     </Router>

@@ -1,7 +1,18 @@
 /* Materialize */
+h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 h3 {
   margin: 1rem 0;
   font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h2 {
+  margin: 1rem 0;
+  font-size: 2.8rem;
   font-weight: 600;
 }
 
@@ -124,9 +135,54 @@ label {
 .report-head {
   background:  linear-gradient(87deg, #11cdef 0, #1171ef 100%);
   width: 100%;
-  height: 400px;
+  height: 300px;
 }
 
 .report-head .heading {
-  margin-top: -10rem;
+  margin-top: -8rem;
+  padding: 1rem 4rem 0;
+}
+
+
+.report-body {
+  margin-top: -8rem;
+  padding: 1rem;
+  border-radius: .2rem;
+}
+
+.tabs .indicator {
+  background-color: black;
+}
+
+.prt {
+  padding: 2.5rem 1rem;
+}
+
+.print {
+  margin-right: 10px;
+}
+
+.print-btn {
+display: flex;
+align-items: center;
+}
+
+.personal {
+  border-bottom: 2px solid grey;
+}
+
+table {
+ border-radius: .2rem;
+}
+
+.opacity {
+  opacity: 0;
+}
+
+.section {
+  margin: 2rem 0 ;
+}
+
+.sec {
+  margin-bottom: 4rem;
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import FormSwitch from './FormSwitch'
 
-function FormPage() {
+function FormPage(props) {
     return (
       <div className="container">
         <div className="row">

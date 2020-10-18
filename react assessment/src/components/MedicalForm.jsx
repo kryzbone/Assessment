@@ -1,13 +1,21 @@
-import React, {useRef, useContext, useState} from 'react'
+import React, {useRef, useContext, useState, useEffect} from 'react';
+import {Link} from "react-router-dom"
 import { MyContext } from '../App';
 import { MEDICAL } from '../reduce';
+import Collapsible from './Collapsible';
+import M from "materialize-css";
 
 function MedicalForm() {
     const {state, dispatch} = useContext(MyContext)
+    console.log(state)
     const [dragDrop, setDragDrop ] = useState({
         dOver: null,
         fileName: null
     })
+
+    useEffect(() => {
+        M.AutoInit();
+    }, [])
 
     //ref init
     const fileInput = useRef();
@@ -28,12 +36,7 @@ function MedicalForm() {
         })
     }
 
-
-    //save info
-    const handleSave = (e) => {
-        e.preventDefault()
-    }
-
+    //Previous btn
     const handlePrev = (e) => {
         e.preventDefault() 
     }
@@ -47,6 +50,7 @@ function MedicalForm() {
         })
     }
 
+    //when drag ends
     const dragEnd = (e) => {
         e.preventDefault()
         setDragDrop({
@@ -55,11 +59,12 @@ function MedicalForm() {
         })
     }
 
+    //when file is dropped
     const drop = (e) => {
         e.preventDefault()
         dispatch({
             type: MEDICAL,
-            payload: { name:"testResult", value: e.dataTransfer.files[0]}
+            payload: { name:"group1-bloodTest-result", value: e.dataTransfer.files[0]}
         })
         setDragDrop({
             ...dragDrop,
@@ -75,328 +80,62 @@ function MedicalForm() {
                     <div className="group">
                         <p className="group-title">Do You suffer fron any of the following?</p>
                         <ul className="collapsible">
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Diabetes</div>
-                                <div className="collapsible-body">
+                            <Collapsible 
+                                title="Diabetes" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="diabetes" 
+                                status={state.medical.group1.diabetes.status} 
+                            />
 
-                                    <label>Status*</label>
-                                    <select name="diabetesStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false} >No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
+                            <Collapsible 
+                                title="Blood Pressure Problems" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="hypertension" 
+                                status={state.medical.group1.hypertension.status} 
+                            />
 
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="diabetesYear" 
-                                            disabled={state.medical.diabetesStatus === "false"} 
-                                            className="browser-default" 
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Thyriod Disease" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="thyriod" 
+                                status={state.medical.group1.thyriod.status}
+                            />
 
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.diabetesStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="diabetesType"
-                                            disabled={state.medical.diabetesStatus === "false"} 
-                                            className="browser-default"
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Insulin Resistance" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="insulinResistance" 
+                                status={state.medical.group1.insulinResistance.status} 
+                            />
 
-                                    <label>Medication</label>
-                                    <div className={state.medical.diabetesStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="diabetesMedication" 
-                                            disabled={state.medical.diabetesStatus === "false"}
-                                            className="browser-default"
-                                        />
-                                    </div>
+                            <Collapsible 
+                                title="Kidney Disease" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="kidney" 
+                                status={state.medical.group1.kidney.status} 
+                            />
 
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Blood Pressure Problems</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="bloodStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
+                            <Collapsible 
+                                title="Fatty Liver Disease" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="fattyLiver" 
+                                status={state.medical.group1.fattyLiver.status}
+                            />
 
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="bloodYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.bloodStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Food Dislikes and Allergies" 
+                                change={handleChange} 
+                                group="group1" 
+                                disease="foodAllergies" 
+                                status={state.medical.group1.foodAllergies.status} 
+                            />
 
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.bloodStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="bloodType" 
-                                            className="browser-default"
-                                            disabled={state.medical.bloodStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.bloodStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="bloodMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.bloodStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">thyriod Disease</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="thyriodStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="thyriodYear"
-                                            className="browser-default"
-                                            disabled={state.medical.thyriodStatus === "false"} 
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.thyriodStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="thriodType" 
-                                            className="browser-default"
-                                            disabled={state.medical.thyriodStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.thyriodStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="thriodMedication" 
-                                            className="browser-default" 
-                                            disabled={state.medical.thyriodStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Insulin Resistance</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="insulinStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            name="insulinYear" 
-                                            type="date" 
-                                            className="browser-default" 
-                                            disabled={state.medical.insulinStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.insulinStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="insulinType" 
-                                            className="browser-default"
-                                            disabled={state.medical.insulinStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.insulinStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            name="insulinMedication" 
-                                            type="text" 
-                                            className="browser-default"
-                                            disabled={state.medical.insulinStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Kidney Disease</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="kidneyStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="kidneyYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.kidneyStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.kidneyStatus === "false"?"inp-f grey lighten-2" : "inp-f" }>
-                                        <input 
-                                            type="text" 
-                                            name="kidneyType" 
-                                            className="browser-default"
-                                            disabled={state.medical.kidneyStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.kidneyStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="kidneyMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.kidneyStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Fatty Liver Disease</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="liverStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="liverYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.liverStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.liverStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="liverType" 
-                                            className="browser-default"
-                                            disabled={state.medical.liverStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.liverStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text"
-                                            name="liverMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.liverStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Food Dislikes and Allergies</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="allergiesStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="allergiesYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.allergiesStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.allergiesStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="allergiesType" 
-                                            className="browser-default"
-                                            disabled={state.medical.allergiesStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.allergiesStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="allergiesMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.allergiesStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
                         </ul>
 
                          {/* File upload */}
@@ -404,7 +143,7 @@ function MedicalForm() {
                             <div className="col s6" >
                                 <label>When was you last blood test</label>
                                 <div className="inp-f ">
-                                    <input type="date" name="bloodTest" className="browser-default" onChange={handleChange}/>
+                                    <input type="date" name="group1-bloodTest-date" className="browser-default" onChange={handleChange}/>
                                 </div>
                             </div>
                             <div className="col s6" >
@@ -435,190 +174,37 @@ function MedicalForm() {
                     <div className="group">
                         <p className="group-title">Do You suffer fron any of the following?</p>
                         <ul className="collapsible">
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">High Cholesterol Level</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="cholesterolStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
+                            <Collapsible 
+                                title="High Cholesterol Level" 
+                                change={handleChange} 
+                                group="group2" 
+                                disease="cholesterol" 
+                                status={state.medical.group2.cholesterol.status} 
+                            />
 
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="cholesterolYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.cholesterolStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="High Triglycerides Level" 
+                                change={handleChange} 
+                                group="group2" 
+                                disease="triglycerides" 
+                                status={state.medical.group2.triglycerides.status}  
+                            />
+                            <Collapsible 
+                                title="Iron Deficiency" 
+                                change={handleChange} 
+                                group="group2" 
+                                disease="iron" 
+                                status={state.medical.group2.iron.status} 
+                            />
 
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.cholesterolStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="cholesterolType" 
-                                            className="browser-default"
-                                            disabled={state.medical.cholesterolStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Vitamin D Deficiency" 
+                                change={handleChange} 
+                                group="group2" 
+                                disease="vitaminD" 
+                                status={state.medical.group2.vitaminD.status}  
+                            />
 
-                                    <label>Medication</label>
-                                    <div className={state.medical.cholesterolStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="cholesterolMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.cholesterolStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">High Triglycerides Level</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="triglyceridesStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="triglyceridesYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.triglyceridesStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.triglyceridesStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="triglyceridesType" 
-                                            className="browser-default"
-                                            disabled={state.medical.triglyceridesStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.triglyceridesStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="triglyceridesMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.triglyceridesStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Iron Deficiency</div>
-                                <div className="collapsible-body">
-
-                                        <label>Status*</label>
-                                        <select name="ironStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                            <option disabled value="">Select Status</option>
-                                            <option value={false}>No</option>
-                                            <option value={true}>Yes</option>
-                                        </select>
-                                        <br/>
-
-                                        <label>Diagnosis Year</label>
-                                        <div className="inp-f">
-                                            <input 
-                                                type="date" 
-                                                name="ironYear" 
-                                                className="browser-default" 
-                                                disabled={state.medical.ironStatus === "false"}
-                                            />
-                                        </div>
-                                        <br/>
-
-                                        <label>Diagnosis Type</label>
-                                        <div className={state.medical.ironStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                            <input 
-                                                type="text" 
-                                                name="ironType" 
-                                                className="browser-default"
-                                                disabled={state.medical.ironStatus === "false"}
-                                            />
-                                        </div>
-                                        <br/>
-
-                                        <label>Medication</label>
-                                        <div className={state.medical.ironStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                            <input 
-                                                type="text" 
-                                                name="ironMedication" 
-                                                className="browser-default"
-                                                disabled={state.medical.ironStatus === "false"}
-                                            />
-                                        </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4"> Vitamin D Deficiency </div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="vitaminStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="vitaminYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.vitaminStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.vitaminStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="vitaminType" 
-                                            className="browser-default"
-                                            disabled={state.medical.vitaminStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.vitaminStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="vitaminMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.vitaminStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
                         </ul>
 
 
@@ -627,7 +213,7 @@ function MedicalForm() {
                             <div className="col s12" >
                                 <label>Any other deficiencies?</label>
                                 <div className="inp-f ">
-                                    <input type="text" name="otherDeficiency" className="browser-default" onChange={handleChange}/>
+                                    <input type="text" name="group2-others-extra" className="browser-default" onChange={handleChange}/>
                                 </div>
                             </div>
                         </div>
@@ -644,199 +230,50 @@ function MedicalForm() {
                     <div className="group">
                         <p className="group-title">Do You suffer fron any of the following?</p>
                         <ul className="collapsible">
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Constipation</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="constipationStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
+                            <Collapsible 
+                                title="Constipation" 
+                                change={handleChange} 
+                                group="group3" 
+                                disease="constipation" 
+                                status={state.medical.group3.constipation.status} 
+                            />
 
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="constipationYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.constipationStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Bloating" 
+                                change={handleChange} 
+                                group="group3" 
+                                disease="bloating" 
+                                status={state.medical.group3.bloating.status} 
+                            />
 
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.constipationStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="constipationType" 
-                                            className="browser-default"
-                                            disabled={state.medical.constipationStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
+                            <Collapsible 
+                                title="Gluten Intolerance" 
+                                change={handleChange} 
+                                group="group3" 
+                                disease="glutenIntolerance" 
+                                status={state.medical.group3.glutenIntolerance.status}  
+                            />
 
-                                    <label>Medication</label>
-                                    <div className={state.medical.constipationStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="constipationMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.constipationStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4">Bloading</div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="bloatingStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="bloatingYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.bloatingStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.bloatingStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="bloatingType" 
-                                            className="browser-default"
-                                            disabled={state.medical.bloatingStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.bloatingStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="bloatingMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.bloatingStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4"> Gluten Intolerance </div>
-                                <div className="collapsible-body">
-
-                                    <label>Status*</label>
-                                    <select name="glutenStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option value="" disabled>Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="glutenYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.glutenStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.glutenStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="glutenType" 
-                                            className="browser-default"
-                                            disabled={state.medical.glutenStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.glutenStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="glutenMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.glutenStatus === "false"}
-                                        />
-                                    </div>
-                                </div>
-
-                            </li>
-                            <li>
-                                <div className="collapsible-header blue-grey lighten-4"> Lactose Intolerance </div>
-                                <div className="collapsible-body">
-                                    
-                                    <label>Status*</label>
-                                    <select name="LactoseStatus" className="browser-default" defaultValue="" onChange={handleChange} required>
-                                        <option disabled value="">Select Status</option>
-                                        <option value={false}>No</option>
-                                        <option value={true}>Yes</option>
-                                    </select>
-                                    <br/>
-
-                                    <label>Diagnosis Year</label>
-                                    <div className="inp-f">
-                                        <input 
-                                            type="date" 
-                                            name="LactoseYear" 
-                                            className="browser-default" 
-                                            disabled={state.medical.LactoseStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Diagnosis Type</label>
-                                    <div className={state.medical.LactoseStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="LactoseType" 
-                                            className="browser-default"
-                                            disabled={state.medical.LactoseStatus === "false"}
-                                        />
-                                    </div>
-                                    <br/>
-
-                                    <label>Medication</label>
-                                    <div className={state.medical.LactoseStatus === "false"?"inp-f grey lighten-2" : "inp-f"}>
-                                        <input 
-                                            type="text" 
-                                            name="LactoseMedication" 
-                                            className="browser-default"
-                                            disabled={state.medical.LactoseStatus === "false"}
-                                        />
-                                    </div>
-
-                                </div>
-                            </li>
+                            <Collapsible 
+                                title="Lactose Intolerance" 
+                                change={handleChange} 
+                                group="group3" 
+                                disease="lactoseIntolerance" 
+                                status={state.medical.group3.lactoseIntolerance.status}  
+                            />
                             
                         </ul>
                     </div>
 
                     {/* Other Deficiency */}
                     <div className="row save"> 
-                        <div className="col s3 offset-s9" >
-                            <button className="btn waves-effect waves-teal grey-text text-darhen-3  white prev" onClick={handlePrev}> Previous </button>
-                            <button className="btn waves-effect waves-light light-blue accent-3" onClick={handleSave}> Save </button>
+                        <div className="col s6 offset-s6" >
+                            <div className="right"> 
+                                <button className="btn waves-effect waves-teal grey-text text-darhen-3  white prev" onClick={handlePrev}> Previous </button>
+                                <Link to="/report">
+                                    <button className="btn waves-effect waves-light light-blue accent-3"> Save </button>
+                                </Link>
+                            </div> 
                         </div>
                     </div>
 
