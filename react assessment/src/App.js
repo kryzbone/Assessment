@@ -11,15 +11,14 @@ export const MyContext = React.createContext()
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initState);
-  
 
   return (
     <Router>
       <Navbar />
-      
+       
       <MyContext.Provider value={{state, dispatch}} >
-        <Route exact path="/report" component={ReportPage} />
         <Route exact path="/" component={FormPage} />
+        <Route path="/report" component={ReportPage} />
       </MyContext.Provider>  
     
     </Router>

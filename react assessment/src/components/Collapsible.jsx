@@ -5,7 +5,6 @@ export default function Collapsible(props) {
     const {title, change, group, disease, status} = props
     
     
-    
     return (
         <li>
             <div className="collapsible-header blue-grey lighten-4"> {title} </div>

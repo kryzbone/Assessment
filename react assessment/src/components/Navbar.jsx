@@ -1,4 +1,5 @@
 import React from 'react'
+import { Menu } from "react-feather"
 
 function Navbar() {
     return (
@@ -8,15 +9,14 @@ function Navbar() {
                     <div className="row">
                         <span className="col s4 offset-s8 profile ">
                             <div className="right valign-wrapper"> 
-                                <span className="menu-ico black-text" data-feather="menu"></span>
+                                <Menu className="menu-ico black-text" />
                                 <img src="https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon.png" alt="Profile" width="32" className="circle p-pic"/>
                                 <span className="black-text">John Snow</span>
                             </div>
                         </span>
                     </div>
                 </div>
-            </nav>
-        
+            </nav>        
         </div>
     )
 }

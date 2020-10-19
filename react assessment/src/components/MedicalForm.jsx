@@ -7,7 +7,6 @@ import M from "materialize-css";
 
 function MedicalForm() {
     const {state, dispatch} = useContext(MyContext)
-    console.log(state)
     const [dragDrop, setDragDrop ] = useState({
         dOver: null,
         fileName: null

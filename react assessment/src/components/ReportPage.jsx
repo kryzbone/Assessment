@@ -9,6 +9,7 @@ export default function ReportPage() {
     const foodAllergies = group1.foodAllergies.status === "true"
     const bloodTest = group1.bloodTest.result
 
+
     return (
         <>
             <div className="row valign-wrapper report-head">
